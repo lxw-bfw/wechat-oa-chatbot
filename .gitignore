@@ -13,3 +13,5 @@ run/
 *.un~
 typings/
 .nyc_output/
+.env.local
+.env.prod

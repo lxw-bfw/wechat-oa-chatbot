@@ -7,12 +7,16 @@
     "declarations": true
   },
   "dependencies": {
+    "dotenv": "^16.4.7",
     "egg": "^3.17.5",
-    "egg-scripts": "2"
+    "egg-router-plus": "^2.0.0",
+    "egg-scripts": "2",
+    "openai": "^4.91.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
+    "cross-env": "^7.0.3",
     "egg-bin": "6",
     "egg-mock": "5",
     "eslint": "8",
