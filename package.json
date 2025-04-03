@@ -11,13 +11,25 @@
     "egg-scripts": "2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
     "egg-bin": "6",
     "egg-mock": "5",
     "eslint": "8",
-    "eslint-config-egg": "13"
+    "eslint-config-egg": "13",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-prettier": "^5.2.6",
+    "husky": "^9.1.7",
+    "prettier": "^3.5.3"
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "lint-staged": {
+    "**.{js,ts,mjs,cjs}": [
+      "prettier --write",
+      "eslint"
+    ]
   },
   "scripts": {
     "start": "egg-scripts start --daemon --title=egg-server-wechat-oa-chatbot",
@@ -27,7 +39,8 @@
     "test:local": "egg-bin test",
     "cov": "egg-bin cov",
     "lint": "eslint .",
-    "ci": "npm run lint && npm run cov"
+    "ci": "npm run lint && npm run cov",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",

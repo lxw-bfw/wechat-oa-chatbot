@@ -1,0 +1,8 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npx lint-staged
+
+# npm run lint
+# npx --no -- commitlint --edit "\${1}" # throw error
+# npx --no-install commitlint --edit $1 # it works
