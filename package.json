@@ -11,7 +11,8 @@
     "egg": "^3.17.5",
     "egg-router-plus": "^2.0.0",
     "egg-scripts": "2",
-    "openai": "^4.91.1"
+    "openai": "^4.91.1",
+    "xml2js": "^0.6.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",

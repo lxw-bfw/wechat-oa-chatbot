@@ -1,7 +1,64 @@
 const { Controller } = require('egg');
+const crypto = require('crypto');
+const xml2js = require('xml2js');
 
 class WechatController extends Controller {
-  // 一次性完整输出回复，响应时间更长
+  // 处理微信公众号用户发送的消息
+  async handleWechatOaMessage() {
+    console.log('微信服务器回调测试');
+
+    const { ctx } = this;
+    if (ctx.method === 'GET') {
+      console.log('微信回调get请求，开始进行验证');
+
+      const { signature, timestamp, nonce, echostr } = ctx.query;
+      const token = 'lw_ai_token'; // 必须与公众平台配置一致
+
+      // 排序并拼接字符串
+      const tmpArr = [token, timestamp, nonce].sort();
+      const tmpStr = tmpArr.join('');
+      const sha1 = crypto.createHash('sha1');
+      sha1.update(tmpStr);
+      const hash = sha1.digest('hex');
+
+      // 验证签名
+      if (hash === signature) {
+        ctx.body = echostr; // 返回 echostr 表示验证成功
+      } else {
+        ctx.status = 403; // 验证失败
+        ctx.body = 'Forbidden';
+      }
+      return;
+    }
+
+    if (ctx.method === 'POST') {
+      // 处理用户消息
+      const xml = ctx.request.body;
+      const parser = new xml2js.Parser({ explicitArray: false });
+      const result = await parser.parseStringPromise(xml);
+
+      const userMessage = result.xml.Content;
+      const fromUser = result.xml.FromUserName;
+      const toUser = result.xml.ToUserName;
+      console.log('用户消息:', userMessage);
+      console.log('发送者:', fromUser);
+      console.log('接收者:', toUser);
+
+      // 构造回复XML
+      const responseXml = `
+        <xml>
+          <ToUserName><![CDATA[${fromUser}]]></ToUserName>
+          <FromUserName><![CDATA[${toUser}]]></FromUserName>
+          <CreateTime>${Date.now()}</CreateTime>
+          <MsgType><![CDATA[text]]></MsgType>
+          <Content><![CDATA[${'你好，这里是LW服务器接口在回复您'}]]></Content>
+        </xml>
+      `;
+
+      ctx.type = 'application/xml';
+      ctx.body = responseXml;
+    }
+  }
 
   // 流式输出模式，微信公众号服务器不支持，仅自己前端使用
   async chatR1Stream() {
