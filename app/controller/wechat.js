@@ -12,7 +12,7 @@ class WechatController extends Controller {
       console.log('微信回调get请求，开始进行验证');
 
       const { signature, timestamp, nonce, echostr } = ctx.query;
-      const token = 'lw_ai_token'; // 必须与公众平台配置一致
+      const token = 'lxwstrongtoken'; // 必须与公众平台配置一致
 
       // 排序并拼接字符串
       const tmpArr = [token, timestamp, nonce].sort();
