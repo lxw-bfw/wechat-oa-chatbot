@@ -35,7 +35,7 @@ module.exports = appInfo => {
   // 设置端口号
   config.cluster = {
     listen: {
-      port: eggServerPort, // 修改为你需要的端口号
+      port: parseInt(eggServerPort), // 修改为你需要的端口号
     },
   };
 
