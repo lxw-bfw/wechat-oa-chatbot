@@ -5,8 +5,7 @@ module.exports = app => {
   const { router, controller } = app;
 
   const subRouter = router.namespace(`/${process.env.PROJECT_NAME}`);
-  subRouter.all('/wechat/handleWechatOaMessage', controller.wechat.handleWechatOaMessage);
-  subRouter.all('/wechat/chatR1Stream', controller.wechat.chatR1Stream);
+  subRouter.get('/wechatmp', controller.wechatmp.verify);
 
   router.get('/', controller.home.index);
 };
