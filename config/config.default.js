@@ -29,23 +29,33 @@ module.exports = appInfo => {
     appId: process.env.WECHATMP_APPID,
     appSecret: process.env.WECHATMP_APPSECRET,
     maxTextByteLength: 2048, // 微信文本消息最大字节长度
+    replyTimeout: 4000, // 微信公众号回复超时设置
+    totalReplyTimeout: 12500, // 微信公众号总超时设置
+    replyTimeoutTips: process.env.WECHATMP_REPLY_TIMEOUT_TIP,
+    subscribeMsg: process.env.SUBSCRIBE_MSG,
   };
 
   config.aiModel = {
     apiKey: process.env.DEEPSEEK_API_KEY,
     apiUrl: process.env.DEEPSEEK_URL,
-    // 新增：服务器等待AI同步返回的最长时间 (略小于15秒)
-    syncAttemptTimeoutMs: 14500, // 例如14.5秒
-    // AI服务自身请求的超时 (用于后台异步调用，可以更长)
-    backgroundRequestTimeoutMs: 120000, // 例如2分钟
-    // 缓存相关
-    cacheTTLSeconds: 300, // AI结果在缓存中的存活时间 (5分钟)
+    aiModel: process.env.DEEPSEEK_MODEL || 'deepseek-chat',
+    backgroundRequestTimeoutMs: 120000,
+    cacheTTLSeconds: 300, // AI生成的回复内容命中缓存后的最长缓存时间
   };
 
   config.bodyParser = {
     enableTypes: ['json', 'form', 'text'],
     extendTypes: {
-      text: ['application/xml'],
+      text: ['text/xml', 'application/xml'],
+    },
+  };
+
+  config.redis = {
+    client: {
+      port: 6379,
+      host: '127.0.0.1',
+      password: 'auth',
+      db: 0,
     },
   };
 

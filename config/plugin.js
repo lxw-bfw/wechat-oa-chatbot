@@ -8,4 +8,8 @@ module.exports = {
     enable: true,
     package: 'egg-router-plus',
   },
+  redis: {
+    enable: true,
+    package: 'egg-redis',
+  },
 };
