@@ -129,6 +129,19 @@ class WechatmpController extends Controller {
       // 不做回复
     }
   }
+
+  async searchUserList() {
+    const { ctx } = this;
+    try {
+      const result = await ctx.service.wechatApi.getUserList();
+      ctx.body = result;
+    } catch (error) {
+      ctx.status = 500;
+      ctx.body = {
+        error: '服务器错误，查询失败',
+      };
+    }
+  }
 }
 
 module.exports = WechatmpController;

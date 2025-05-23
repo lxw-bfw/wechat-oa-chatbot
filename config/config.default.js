@@ -28,11 +28,17 @@ module.exports = appInfo => {
     token: process.env.WECHATMP_TOKEN,
     appId: process.env.WECHATMP_APPID,
     appSecret: process.env.WECHATMP_APPSECRET,
+    accessTokenUrl: process.env.WECHATMP_ACCESS_TOKEN_URL,
     maxTextByteLength: 2048, // 微信文本消息最大字节长度
     replyTimeout: 4000, // 微信公众号回复超时设置
     totalReplyTimeout: 12500, // 微信公众号总超时设置
     replyTimeoutTips: process.env.WECHATMP_REPLY_TIMEOUT_TIP,
     subscribeMsg: process.env.SUBSCRIBE_MSG,
+    redisTokenKey: 'wechat:access_token',
+    redisTokenExpiresKey: 'wechat:access_token_expires_at',
+    redisLockKey: 'lock:wechat_access_token_refresh',
+    lockTimeout: 5000, // 锁的超时时间，单位毫秒 (5秒)
+    tokenExpireAdvance: 300, // access_token 提前多少秒视为过期 (5分钟)
   };
 
   config.aiModel = {
@@ -57,6 +63,23 @@ module.exports = appInfo => {
       password: 'auth',
       db: 0,
     },
+  };
+
+  // 日志模块配置
+  config.customLogger = {
+    scheduleLogger: {
+      file: path.join(appInfo.root, 'logs', appInfo.name, 'egg-schedule.log'),
+    },
+    wechatLogger: {
+      file: path.join(appInfo.root, 'logs', appInfo.name, 'wechat-api.log'),
+    },
+  };
+
+  // 告警服务配置
+  config.alerting = {
+    // 企业微信机器人 | 钉钉 | 邮箱
+    webhookUrl: 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send',
+    enable: false,
   };
 
   // 对微信官发起的post请求，禁用CSRF
