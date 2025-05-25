@@ -28,15 +28,9 @@
 
 ### demo演示视频
 
-<iframe 
-  src="//player.bilibili.com/player.html?isOutside=true&aid=114568068071775&bvid=BV1bzjuzvEdM&cid=30145382987&p=1" 
-  scrolling="no" 
-  border="0" 
-  frameborder="no" 
-  framespacing="0" 
-  allowfullscreen="true" 
-  style="width: 360px; height: 640px;">
-</iframe>
+点击下面视频封面，跳转到视频演示页面
+
+[<img src="https://ik.imagekit.io/lxwgemmke/wechatmp/bd68e01b04cef8a24af2b211d857b1f.jpg?updatedAt=1748174501972" alt="演示视频" style="zoom:50%;" />](https://b23.tv/xPI6KL2)
 
 ### 我的AI信息、工具分享公众号【LW的AI信息屋】
 
