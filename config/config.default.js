@@ -23,6 +23,10 @@ module.exports = appInfo => {
 
   config.middleware = [];
 
+  config.publicTempDir = path.join(appInfo.baseDir, 'app/public/temp_media');
+  config.tempMediaDirName = 'temp_media';
+  config.appBaseUrl = process.env.APP_BASE_URL;
+
   // 微信公众号相关配置
   config.wechat = {
     token: process.env.WECHATMP_TOKEN,
@@ -49,6 +53,13 @@ module.exports = appInfo => {
     cacheTTLSeconds: 300, // AI生成的回复内容命中缓存后的最长缓存时间
   };
 
+  config.speechAiConfig = {
+    serviceUrl: process.env.SPEECH_AI_SERVICE_URL,
+    appId: process.env.SPEECH_AI_APPID,
+    token: process.env.SPEECH_AI_TOKEN,
+    cluster: process.env.SPEECH_AI_CLUSTER,
+  };
+
   config.bodyParser = {
     enableTypes: ['json', 'form', 'text'],
     extendTypes: {
@@ -63,6 +74,12 @@ module.exports = appInfo => {
       password: 'auth',
       db: 0,
     },
+  };
+
+  config.static = {
+    prefix: '/public/',
+    dir: path.join(appInfo.baseDir, 'app/public'),
+    dynamic: true,
   };
 
   // 日志模块配置

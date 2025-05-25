@@ -1,4 +1,5 @@
 logs/
+*/public/temp_media/
 npm-debug.log
 yarn-error.log
 node_modules/

@@ -92,6 +92,12 @@ class WechatmpController extends Controller {
         );
         replyXml = await service.wechatmp.processTextMessage(messageData);
         break;
+      case 'voice': {
+        logger.info(`Received voice message from ${messageData.FromUserName}`);
+
+        replyXml = await service.wechatmp.processVoiceMessage(messageData);
+        break;
+      }
       case 'event':
         logger.info(`Received event: ${messageData.Event} from ${messageData.FromUserName}`);
         if (messageData.Event === 'subscribe') {

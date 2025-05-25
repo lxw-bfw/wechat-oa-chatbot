@@ -3,13 +3,8 @@
 const Service = require('egg').Service;
 const OpenAI = require('openai');
 const SYSTEMPROMPT = require('../utils/systemPrompt');
-// 读取DEEPSEEK_API_KEY环境变量
 const DEEPSEEKAPIKEY = process.env.DEEPSEEK_API_KEY;
-// 读取DEEPSEEK_URL环境变量
 const DEEPSEEKURL = process.env.DEEPSEEK_URL;
-
-console.log(`DEEPSEEK_API_KEY: ${DEEPSEEKAPIKEY}`);
-console.log(`DEEPSEEK_URL: ${DEEPSEEKURL}`);
 
 class WechatService extends Service {
   /**
